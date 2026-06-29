@@ -5,10 +5,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>Dharani Dharan M — AI Builder from Tamil Nadu</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230d1117'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-weight='700' font-size='18' fill='%234ecdc4'>D</text></svg>" />
   <meta name="description"
-    content="Dharani Dharan M — AI & Data Science student at Karunya Institute. Builder of CodeBuddy (world's first Tanglish AI), DevMind, TOOLZEN. Open to internships." />
+    content="Dharani Dharan M — AI & Data Science student at Karunya Institute. Builder of CodeBuddy (world's first Tanglish AI), RAGMind, DevMind, PrepSense AI, TOOLZEN. CODSOFT AI Intern. Open to internships." />
   <meta name="keywords"
-    content="Dharani Dharan, AI Developer, Tamil Nadu, CodeBuddy, Tanglish AI, Machine Learning, Python, Flask, React, Internship" />
+    content="Dharani Dharan, AI Developer, Tamil Nadu, CodeBuddy, Tanglish AI, RAGMind, PrepSense AI, Machine Learning, Python, Flask, React, Node.js, Internship, CODSOFT" />
   <meta name="author" content="Dharani Dharan M" />
   <meta property="og:title" content="Dharani Dharan M — AI Builder" />
   <meta property="og:description"
@@ -536,65 +537,283 @@
       border-left: 1px solid var(--border);
     }
 
-    /* ═══ STATS STRIP ══════════════════════════════════════════════════════════ */
-    .stats-strip {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+    /* ═══ MARQUEE STRIP ════════════════════════════════════════════════════════ */
+    .marquee-wrap {
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      padding: 14px 0;
+      background: var(--bg);
       position: relative;
       z-index: 2;
     }
+    .marquee-wrap::before, .marquee-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 80px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .marquee-wrap::before { left: 0; background: linear-gradient(90deg, var(--bg), transparent); }
+    .marquee-wrap::after  { right: 0; background: linear-gradient(-90deg, var(--bg), transparent); }
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      animation: marquee 30s linear infinite;
+      width: max-content;
+    }
+    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .m-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted2);
+      padding: 0 28px;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .m-tag span { color: var(--g); font-size: 8px; }
 
-    .stat {
-      padding: 40px 32px;
+    /* ═══ FOCUS STRIP ══════════════════════════════════════════════════════════ */
+    .focus-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-bottom: 1px solid var(--border);
+    }
+    .focus-card {
+      padding: 32px 36px;
       border-right: 1px solid var(--border);
       position: relative;
       overflow: hidden;
-      cursor: default;
       transition: background 0.3s;
     }
-
-    .stat:last-child {
-      border-right: none;
-    }
-
-    .stat::before {
+    .focus-card:last-child { border-right: none; }
+    .focus-card:hover { background: var(--g-faint); }
+    .focus-card::after {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
+      bottom: 0; left: 0; right: 0;
       height: 1px;
       background: linear-gradient(90deg, transparent, var(--g), transparent);
-      transform: translateX(-100%);
-      transition: transform 0.5s;
+      transform: scaleX(0);
+      transition: transform 0.4s;
     }
-
-    .stat:hover::before {
-      transform: translateX(0);
-    }
-
-    .stat:hover {
-      background: var(--g-faint);
-    }
-
-    .stat-n {
-      font-family: var(--font-head);
-      font-size: 56px;
-      color: var(--g);
-      text-shadow: var(--glow);
-      letter-spacing: 1px;
-      line-height: 1;
-    }
-
-    .stat-l {
+    .focus-card:hover::after { transform: scaleX(1); }
+    .focus-icon { font-size: 22px; margin-bottom: 12px; }
+    .focus-label {
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: 9px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--muted);
-      margin-top: 8px;
+      color: var(--g);
+      margin-bottom: 8px;
+    }
+    .focus-title {
+      font-family: var(--font-head);
+      font-size: 20px;
+      color: var(--text);
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+    .focus-desc { font-size: 12px; color: var(--muted); line-height: 1.7; }
+    .focus-pulse {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--g);
+      margin-top: 12px;
+    }
+    .focus-pulse::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--g);
+      box-shadow: 0 0 6px var(--g);
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    /* ═══ TIMELINE ══════════════════════════════════════════════════════════════ */
+    .timeline-strip {
+      border-bottom: 1px solid var(--border);
+      padding: 60px 0;
+    }
+    .timeline-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+    .tl-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--g);
+      margin-bottom: 40px;
+      opacity: 0.7;
+    }
+    .tl-track {
+      display: flex;
+      gap: 0;
+      position: relative;
+    }
+    .tl-track::before {
+      content: '';
+      position: absolute;
+      top: 18px; left: 0; right: 0;
+      height: 1px;
+      background: var(--border);
+    }
+    .tl-item {
+      flex: 1;
+      padding-top: 44px;
+      position: relative;
+      cursor: default;
+    }
+    .tl-dot {
+      position: absolute;
+      top: 10px; left: 0;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      transition: all 0.3s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .tl-dot::after {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--g);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .tl-item:hover .tl-dot { border-color: var(--g); box-shadow: 0 0 8px rgba(0,255,100,0.3); }
+    .tl-item:hover .tl-dot::after { opacity: 1; }
+    .tl-date {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      color: var(--g);
+      margin-bottom: 6px;
+      opacity: 0.8;
+    }
+    .tl-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+      padding-right: 16px;
+    }
+    .tl-sub {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--muted2);
+      padding-right: 16px;
+      line-height: 1.5;
+    }
+
+    /* ═══ SKILLS SHOWCASE ══════════════════════════════════════════════════════ */
+    .skills-showcase {
+      border-bottom: 1px solid var(--border);
+      padding: 48px 0;
+      background: var(--bg2);
+    }
+    .skills-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+    .skills-side-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--g);
+      opacity: 0.7;
+      padding-top: 4px;
+    }
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .sk-pill {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 7px 14px;
+      border: 1px solid var(--border);
+      color: var(--muted2);
+      cursor: default;
+      transition: all 0.2s;
+    }
+    .sk-pill:hover { border-color: var(--g); color: var(--g); }
+    .sk-pill.hot { border-color: rgba(0,255,100,0.3); color: var(--g); }
+
+    /* ═══ GITHUB CONTRIB ════════════════════════════════════════════════════════ */
+    .github-strip {
+      border-bottom: 1px solid var(--border);
+      padding: 48px 0;
+    }
+    .github-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+    .gh-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .gh-title {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--g);
+      opacity: 0.7;
+    }
+    .gh-link {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted2);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .gh-link:hover { border-color: var(--g); color: var(--g); }
+    .gh-img-wrap {
+      width: 100%;
+      border: 1px solid var(--border);
+      padding: 16px;
+      background: #0d1117;
+      overflow: hidden;
+    }
+    .gh-img-wrap img { width: 100%; display: block; }
+
+    @media(max-width:900px) {
+      .focus-strip { grid-template-columns: 1fr; }
+      .focus-card { border-right: none; border-bottom: 1px solid var(--border); }
+      .tl-track { flex-direction: column; gap: 32px; }
+      .tl-track::before { display: none; }
+      .tl-item { padding-top: 0; padding-left: 28px; }
+      .tl-dot { top: 0; }
+      .skills-inner { grid-template-columns: 1fr; gap: 16px; }
     }
 
     /* ═══ SECTION BASE ══════════════════════════════════════════════════════════ */
@@ -1565,9 +1784,6 @@
         display: none;
       }
 
-      .stats-strip {
-        grid-template-columns: 1fr 1fr;
-      }
 
       .wrap {
         padding: 0 24px;
@@ -1675,6 +1891,127 @@
       background: var(--g);
       border-radius: 50%;
     }
+    /* ═══ EXPERIENCE SECTION ══════════════════════════════════════════════════ */
+    #experience {
+      padding: 120px 0;
+      background: var(--bg2);
+    }
+    .exp-list {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--border);
+    }
+    .exp-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .exp-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--g);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.35s ease;
+    }
+    .exp-item:hover::before { transform: scaleY(1); }
+    .exp-item:hover { background: var(--g-faint); }
+    .exp-date {
+      padding: 36px 32px;
+      border-right: 1px solid var(--border);
+    }
+    .exp-date-range {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--g);
+      letter-spacing: 1.5px;
+      margin-bottom: 6px;
+    }
+    .exp-date-type {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted2);
+      background: rgba(0,255,100,0.06);
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      display: inline-block;
+      margin-top: 4px;
+    }
+    .exp-content {
+      padding: 36px 40px;
+    }
+    .exp-role {
+      font-family: var(--font-head);
+      font-size: 24px;
+      letter-spacing: 1px;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .exp-company {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--g);
+      letter-spacing: 1.5px;
+      margin-bottom: 16px;
+      opacity: 0.85;
+    }
+    .exp-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+    .exp-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 16px;
+    }
+    .exp-bullets li {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      padding-left: 16px;
+      position: relative;
+    }
+    .exp-bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--g);
+      font-size: 10px;
+      top: 2px;
+    }
+    .exp-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .exp-tag {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border: 1px solid var(--border);
+      color: var(--muted2);
+    }
+    @media(max-width:900px) {
+      .exp-item { grid-template-columns: 1fr; }
+      .exp-date { border-right: none; border-bottom: 1px solid var(--border); padding: 20px 24px; }
+      .exp-content { padding: 20px 24px; }
+    }
+
     .cert-card {
       border: 1px solid var(--border);
       padding: 20px;
@@ -1724,7 +2061,7 @@
       <a href="#hero"><span class="idx">01 /</span> intro</a>
       <a href="#about"><span class="idx">02 /</span> about</a>
       <a href="#projects"><span class="idx">03 /</span> work</a>
-      <a href="#skills"><span class="idx">04 /</span> stack</a>
+      <a href="#experience"><span class="idx">04 /</span> exp</a>
       <a href="#chat"><span class="idx">05 /</span> ai</a>
       <a href="#contact"><span class="idx">06 /</span> contact</a>
     </div>
@@ -1808,23 +2145,166 @@
     </div>
   </section>
 
-  <!-- ═══ STATS ═════════════════════════════════════════════════════════════════ -->
-  <div class="stats-strip rv">
-    <div class="stat">
-      <div class="stat-n" data-to="5">0</div>
-      <div class="stat-l">AI Projects Built</div>
+  <!-- ═══ 1. MARQUEE SCROLLING TAGS ══════════════════════════════════════════ -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <div class="m-tag"><span>◆</span> Python</div>
+      <div class="m-tag"><span>◆</span> React</div>
+      <div class="m-tag"><span>◆</span> Flask</div>
+      <div class="m-tag"><span>◆</span> Node.js</div>
+      <div class="m-tag"><span>◆</span> Groq LLaMA3</div>
+      <div class="m-tag"><span>◆</span> RAG Systems</div>
+      <div class="m-tag"><span>◆</span> OpenRouter</div>
+      <div class="m-tag"><span>◆</span> FastAPI</div>
+      <div class="m-tag"><span>◆</span> CNN · PyTorch</div>
+      <div class="m-tag"><span>◆</span> SocketIO</div>
+      <div class="m-tag"><span>◆</span> NLP · NLTK</div>
+      <div class="m-tag"><span>◆</span> SQLite</div>
+      <div class="m-tag"><span>◆</span> HTML5 Canvas</div>
+      <div class="m-tag"><span>◆</span> Tanglish AI</div>
+      <div class="m-tag"><span>◆</span> JWT · Bcrypt</div>
+      <div class="m-tag"><span>◆</span> Minimax · Alpha-Beta</div>
+      <!-- duplicate for seamless loop -->
+      <div class="m-tag"><span>◆</span> Python</div>
+      <div class="m-tag"><span>◆</span> React</div>
+      <div class="m-tag"><span>◆</span> Flask</div>
+      <div class="m-tag"><span>◆</span> Node.js</div>
+      <div class="m-tag"><span>◆</span> Groq LLaMA3</div>
+      <div class="m-tag"><span>◆</span> RAG Systems</div>
+      <div class="m-tag"><span>◆</span> OpenRouter</div>
+      <div class="m-tag"><span>◆</span> FastAPI</div>
+      <div class="m-tag"><span>◆</span> CNN · PyTorch</div>
+      <div class="m-tag"><span>◆</span> SocketIO</div>
+      <div class="m-tag"><span>◆</span> NLP · NLTK</div>
+      <div class="m-tag"><span>◆</span> SQLite</div>
+      <div class="m-tag"><span>◆</span> HTML5 Canvas</div>
+      <div class="m-tag"><span>◆</span> Tanglish AI</div>
+      <div class="m-tag"><span>◆</span> JWT · Bcrypt</div>
+      <div class="m-tag"><span>◆</span> Minimax · Alpha-Beta</div>
     </div>
-    <div class="stat">
-      <div class="stat-n" data-to="50">0</div>
-      <div class="stat-l">Tools in TOOLZEN</div>
+  </div>
+
+  <!-- ═══ 2. WHAT I'M BUILDING (Current Focus) ═════════════════════════════ -->
+  <div class="focus-strip rv">
+    <div class="focus-card">
+      <div class="focus-icon">🎓</div>
+      <div class="focus-label">Currently Studying</div>
+      <div class="focus-title">B.Tech AI & DS</div>
+      <div class="focus-desc">1st year at Karunya Institute of Technology and Sciences, Coimbatore — building real AI projects alongside deep academic learning in AI & Data Science.</div>
+      <div class="focus-pulse">2025 – 2029</div>
     </div>
-    <div class="stat">
-      <div class="stat-n" data-to="9">0</div>
-      <div class="stat-l">Indian Languages</div>
+    <div class="focus-card">
+      <div class="focus-icon">🤖</div>
+      <div class="focus-label">What I Build</div>
+      <div class="focus-title">Full-Stack AI Apps</div>
+      <div class="focus-desc">From self-healing RAG pipelines to adaptive interview coaches and CNN digit recognizers — I build complete, open-source AI products that go beyond requirements.</div>
+      <div class="focus-pulse">Open Source · GitHub</div>
     </div>
-    <div class="stat">
-      <div class="stat-n" data-to="28">0</div>
-      <div class="stat-l">CodeBuddy Features</div>
+    <div class="focus-card">
+      <div class="focus-icon">🚀</div>
+      <div class="focus-label">Open To</div>
+      <div class="focus-title">Internships Now</div>
+      <div class="focus-desc">2 AI internships completed (CodSoft + Codec Technologies), 7 projects on GitHub. Actively seeking AI/ML roles — remote or on-site anywhere in India.</div>
+      <div class="focus-pulse">Available Now</div>
+    </div>
+  </div>
+
+  <!-- ═══ 4. SKILLS SHOWCASE ═══════════════════════════════════════════════ -->
+  <div class="skills-showcase rv">
+    <div class="skills-inner">
+      <div style="display:flex;flex-direction:column;gap:20px;width:100%;">
+
+        <div style="display:flex;align-items:baseline;gap:32px;flex-wrap:wrap;">
+          <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--g);opacity:0.7;min-width:130px;">Languages</div>
+          <div class="skills-grid">
+            <span class="sk-pill hot">Python</span>
+            <span class="sk-pill hot">JavaScript</span>
+            <span class="sk-pill">TypeScript</span>
+            <span class="sk-pill">HTML5</span>
+            <span class="sk-pill">CSS3</span>
+          </div>
+        </div>
+
+        <div style="width:100%;height:1px;background:var(--border);opacity:0.4;"></div>
+
+        <div style="display:flex;align-items:baseline;gap:32px;flex-wrap:wrap;">
+          <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--g);opacity:0.7;min-width:130px;">Frontend</div>
+          <div class="skills-grid">
+            <span class="sk-pill hot">React</span>
+            <span class="sk-pill">Vite</span>
+            <span class="sk-pill">Tailwind CSS</span>
+            <span class="sk-pill">Vanilla JS</span>
+            <span class="sk-pill">HTML5 Canvas</span>
+            <span class="sk-pill">Web Speech API</span>
+            <span class="sk-pill">Web Audio API</span>
+          </div>
+        </div>
+
+        <div style="width:100%;height:1px;background:var(--border);opacity:0.4;"></div>
+
+        <div style="display:flex;align-items:baseline;gap:32px;flex-wrap:wrap;">
+          <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--g);opacity:0.7;min-width:130px;">Backend</div>
+          <div class="skills-grid">
+            <span class="sk-pill hot">Flask</span>
+            <span class="sk-pill hot">Node.js</span>
+            <span class="sk-pill">FastAPI</span>
+            <span class="sk-pill">SocketIO</span>
+            <span class="sk-pill">REST APIs</span>
+            <span class="sk-pill">SQLite</span>
+            <span class="sk-pill">JWT</span>
+            <span class="sk-pill">Bcrypt</span>
+          </div>
+        </div>
+
+        <div style="width:100%;height:1px;background:var(--border);opacity:0.4;"></div>
+
+        <div style="display:flex;align-items:baseline;gap:32px;flex-wrap:wrap;">
+          <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--g);opacity:0.7;min-width:130px;">AI / ML</div>
+          <div class="skills-grid">
+            <span class="sk-pill hot">Groq API</span>
+            <span class="sk-pill hot">RAG Systems</span>
+            <span class="sk-pill hot">LLMs</span>
+            <span class="sk-pill">OpenRouter</span>
+            <span class="sk-pill">Prompt Engineering</span>
+            <span class="sk-pill">CNN · PyTorch</span>
+            <span class="sk-pill">NLP · NLTK</span>
+            <span class="sk-pill">VADER · TextBlob</span>
+            <span class="sk-pill">scikit-learn</span>
+            <span class="sk-pill">SVM · Naive Bayes</span>
+            <span class="sk-pill">OpenCV</span>
+            <span class="sk-pill">Minimax · α-β</span>
+          </div>
+        </div>
+
+        <div style="width:100%;height:1px;background:var(--border);opacity:0.4;"></div>
+
+        <div style="display:flex;align-items:baseline;gap:32px;flex-wrap:wrap;">
+          <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--g);opacity:0.7;min-width:130px;">Tools</div>
+          <div class="skills-grid">
+            <span class="sk-pill">Git</span>
+            <span class="sk-pill">GitHub</span>
+            <span class="sk-pill">VS Code</span>
+            <span class="sk-pill">tkinter</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 5. GITHUB CONTRIBUTIONS ══════════════════════════════════════════ -->
+  <div class="github-strip rv">
+    <div class="github-inner">
+      <div class="gh-header">
+        <div class="gh-title">// GitHub Activity</div>
+        <a href="https://github.com/dharani25007-code" target="_blank" class="gh-link">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="11"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+          @dharani25007-code · 16 repos
+        </a>
+      </div>
+      <div class="gh-img-wrap">
+        <img src="https://github-readme-activity-graph.vercel.app/graph?username=dharani25007-code&bg_color=0d1117&color=4ecdc4&line=4ecdc4&point=ffffff&area=true&area_color=4ecdc420&hide_border=true&radius=4" alt="GitHub Activity Graph" loading="lazy" />
+      </div>
     </div>
   </div>
 
@@ -1992,7 +2472,7 @@
           </a>
         </div>
       </div>
-      <div class="proj" onclick="window.open('https://github.com/dharani25007-code/PrepSense-AI','_blank')">
+      <div class="proj" onclick="window.open('https://github.com/dharani25007-code/prepsense-ai','_blank')">
         <div class="proj-num">05</div>
         <div class="proj-info">
           <div class="proj-name">PrepSense AI</div>
@@ -2005,7 +2485,7 @@
           </div>
         </div>
         <div class="proj-link">
-          <a href="https://github.com/dharani25007-code/PrepSenseAI" target="_blank" onclick="event.stopPropagation()">
+          <a href="https://github.com/dharani25007-code/prepsense-ai" target="_blank" onclick="event.stopPropagation()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20">
               <path d="M7 17L17 7M7 7h10v10" />
             </svg>
@@ -2013,59 +2493,188 @@
           </a>
         </div>
       </div>
+      <div class="proj" onclick="window.open('https://github.com/dharani25007-code/RAGMind-Self-Healing-RAG-Platform-for-Education','_blank')">
+        <div class="proj-num">06</div>
+        <div class="proj-info">
+          <div class="proj-name">RAGMind</div>
+          <div class="proj-sub">SELF-HEALING RAG PIPELINE · AI STUDY ASSISTANT</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-desc">AI study assistant that auto-corrects retrieval errors and answers questions from uploaded study files. Self-healing RAG pipeline with Groq LLaMA — built for education at scale.</div>
+          <div class="proj-tags">
+            <span class="ptag">React</span><span class="ptag">Node.js</span><span class="ptag">FastAPI</span><span class="ptag">Groq</span><span class="ptag">RAG</span>
+          </div>
+        </div>
+        <div class="proj-link">
+          <a href="https://github.com/dharani25007-code/RAGMind-Self-Healing-RAG-Platform-for-Education" target="_blank" onclick="event.stopPropagation()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20">
+              <path d="M7 17L17 7M7 7h10v10" />
+            </svg>
+            View Repo
+          </a>
+        </div>
+      </div>
+      <div class="proj" onclick="window.open('https://github.com/dharani25007-code/echo-snake.','_blank')">
+        <div class="proj-num">07</div>
+        <div class="proj-info">
+          <div class="proj-name">Echo Snake</div>
+          <div class="proj-sub">GHOST-TRAIL SNAKE GAME · HTML5 CANVAS</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-desc">A twist on classic Snake — your ghost follows your exact path with a 5-second delay. Don't collide with your own past. Pure vanilla JS with HTML5 Canvas. Playable live.</div>
+          <div class="proj-tags">
+            <span class="ptag">HTML5</span><span class="ptag">Canvas API</span><span class="ptag">Vanilla JS</span><span class="ptag">Game Dev</span>
+          </div>
+        </div>
+        <div class="proj-link">
+          <a href="https://dharani25007-code.github.io/echo-snake./" target="_blank" onclick="event.stopPropagation()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20">
+              <path d="M7 17L17 7M7 7h10v10" />
+            </svg>
+            Play Live
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ═══ SKILLS ═════════════════════════════════════════════════════════════════ -->
-  <section id="skills">
+  <!-- ═══ EXPERIENCE ══════════════════════════════════════════════════════════════ -->
+  <section id="experience">
     <div class="wrap">
       <div class="sec-head rv">
         <span class="sec-idx">04 //</span>
-        <h2 class="sec-title">STACK</h2>
+        <h2 class="sec-title">EXPERIENCE</h2>
         <div class="sec-rule"></div>
       </div>
-      <div class="skills-2col">
-        <div class="rv">
-          <h3>What I build with</h3>
-          <p class="skills-left-note">I choose tools that ship the best product fastest. These are what I actually use
-            every day — not a buzzword list.</p>
+      <div class="exp-list rv">
+
+        <!-- CODSOFT -->
+        <div class="exp-item">
+          <div class="exp-date">
+            <div class="exp-date-range">May 2026 · Batch C2</div>
+            <div class="exp-date-type">AI Internship</div>
+          </div>
+          <div class="exp-content">
+            <div class="exp-role">AI Developer Intern</div>
+            <div class="exp-company">CodSoft · Remote</div>
+            <div class="exp-desc">Completed the CodSoft AI Internship (May Batch C2 2026) — built 5 production-grade AI projects using React, Node.js, Python, Flask, and Groq LLaMA3.3-70B, featuring patent-worthy innovations, sound effects, and novelties far beyond basic requirements.</div>
+            <ul class="exp-bullets">
+              <li><strong>Task 1 — MoodBot:</strong> Adaptive emotional resonance chatbot — 6 mood states, 4 AI personalities (Therapist, Hype Friend, Zen Master, Tough Love), auto language detection (English/Tamil/Hindi), voice input + TTS output. Built with React + Node.js + Groq.</li>
+              <li><strong>Task 2 — Tic-Tac-Toe AI:</strong> Groq LLaMA3-powered game with 4 difficulty levels, 4 AI personalities, 4 grid sizes (3×3 to 6×6), move timer pressure mode, and AI reasoning that explains every move. Built with React + Node.js + Groq + Minimax fallback.</li>
+              <li><strong>Task 3 — Image Captioning:</strong> CNN + Transformer pipeline for generating natural language descriptions from uploaded images. Built with Python + Flask.</li>
+              <li><strong>Task 4 — UniRec:</strong> Universal AI Recommendation Engine across 8 categories (Movies, Music, Books, Games, Food, Fitness, Travel, Apps) with Emotional DNA Fingerprinting, mood-to-universe mapping, bcrypt login, ratings & favourites. Built with React + Flask + Groq.</li>
+              <li><strong>Task 5 — Face Detection & Recognition:</strong> Real-time deep learning face detection & recognition using Python + OpenCV + PyTorch.</li>
+            </ul>
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap;">
+              <a href="https://github.com/dharani25007-code/CODSOFT" target="_blank" style="font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:8px 16px;border:1px solid var(--border2);color:var(--g);text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all 0.2s;" onmouseover="this.style.background='rgba(0,255,100,0.08)'" onmouseout="this.style.background='transparent'">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="12"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+                View Repo
+              </a>
+            </div>
+            <div class="exp-tags">
+              <span class="exp-tag">React</span>
+              <span class="exp-tag">Node.js</span>
+              <span class="exp-tag">Python</span>
+              <span class="exp-tag">Flask</span>
+              <span class="exp-tag">Groq LLaMA3.3-70B</span>
+              <span class="exp-tag">Minimax + Alpha-Beta</span>
+              <span class="exp-tag">OpenCV</span>
+              <span class="exp-tag">PyTorch</span>
+              <span class="exp-tag">Web Speech API</span>
+            </div>
+          </div>
         </div>
-        <div class="skill-rows rv rv-d1">
-          <div class="skill-row">
-            <div class="skill-cat">Languages</div>
-            <div class="skill-items"><span class="sk">Python</span><span class="sk">JavaScript</span><span
-                class="sk">TypeScript</span><span class="sk">HTML</span><span class="sk">CSS</span></div>
+
+        <!-- Codec Technologies -->
+        <div class="exp-item">
+          <div class="exp-date">
+            <div class="exp-date-range">Jun — Sep 2026</div>
+            <div class="exp-date-type">AI Internship</div>
           </div>
-          <div class="skill-row">
-            <div class="skill-cat">AI / ML</div>
-            <div class="skill-items"><span class="sk">LLMs</span><span class="sk">Prompt Eng.</span><span
-                class="sk">OpenRouter</span><span class="sk">Groq API</span><span class="sk">Scikit-learn</span><span
-                class="sk">NumPy</span><span class="sk">Pandas</span></div>
+          <div class="exp-content">
+            <div class="exp-role">AI/ML Intern</div>
+            <div class="exp-company">Codec Technologies · Remote</div>
+            <div class="exp-desc">Completed the Codec Technologies AI Internship — built 2 production-ready AI projects combining NLP, deep learning (CNN), and LLM integration with React + Flask frontends, far exceeding basic requirements.</div>
+            <ul class="exp-bullets">
+              <li><strong>Task 2 — SentimentAI:</strong> 5-method NLP ensemble — VADER, TextBlob, Naive Bayes, SVM LinearSVC, and Groq LLaMA3.3 working in consensus voting. Features word-level positive/negative highlighting, sarcasm detection, emotion analysis, batch analysis (up to 20 texts), and prediction history. Built with Python + Flask + NLTK + scikit-learn + React.</li>
+              <li><strong>Task 3 — DigitVerse:</strong> CNN trained on MNIST 60K images (~99% accuracy) with interactive canvas drawing (mouse/touch), top-3 predictions with confidence bars, full layer-by-layer architecture breakdown, and Groq AI explaining each prediction. Built with Python + Flask + PyTorch 2.3 + React.</li>
+            </ul>
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap;">
+              <a href="https://github.com/dharani25007-code/Codec-Technologies-AI-Internship" target="_blank" style="font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:8px 16px;border:1px solid var(--border2);color:var(--g);text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all 0.2s;" onmouseover="this.style.background='rgba(0,255,100,0.08)'" onmouseout="this.style.background='transparent'">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="12"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+                View Repo
+              </a>
+            </div>
+            <div class="exp-tags">
+              <span class="exp-tag">Python</span>
+              <span class="exp-tag">Flask</span>
+              <span class="exp-tag">React</span>
+              <span class="exp-tag">PyTorch 2.3</span>
+              <span class="exp-tag">CNN / MNIST</span>
+              <span class="exp-tag">NLTK / VADER</span>
+              <span class="exp-tag">scikit-learn / SVM</span>
+              <span class="exp-tag">Groq LLaMA3.3-70B</span>
+            </div>
           </div>
-          <div class="skill-row">
-            <div class="skill-cat">Frontend</div>
-            <div class="skill-items"><span class="sk">React</span><span class="sk">Vite</span><span class="sk">Tailwind
-                CSS</span></div>
+        </div>
+
+      </div>
+
+      <!-- ── CERTIFICATES ─────────────────────────────────────────────── -->
+      <div style="margin-top:80px;">
+        <div class="sec-head rv" style="margin-bottom:40px;">
+          <span class="sec-idx">04.1 //</span>
+          <h2 class="sec-title" style="font-size:clamp(28px,3vw,48px);">CERTIFICATIONS</h2>
+          <div class="sec-rule"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;border:1px solid var(--border);">
+
+          <div class="cert-card" style="border:none;border-right:1px solid var(--border);">
+            <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--g);opacity:0.7;margin-bottom:8px;">CodSoft</div>
+            <div style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px;">AI Internship Certificate</div>
+            <div style="font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-bottom:14px;">May Batch C2 · 2026 · Remote</div>
+            <div style="font-size:12px;color:var(--muted2);line-height:1.6;margin-bottom:14px;">5 AI projects: MoodBot · Tic-Tac-Toe AI · Image Captioning · UniRec · Face Detection</div>
+            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7476661799723876353/" target="_blank" style="font-family:var(--font-mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:6px 12px;border:1px solid #0077B5;color:#0077B5;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all 0.2s;" onmouseover="this.style.background='rgba(0,119,181,0.1)'" onmouseout="this.style.background='transparent'">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="11"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              View Certificate
+            </a>
           </div>
-          <div class="skill-row">
-            <div class="skill-cat">Backend</div>
-            <div class="skill-items"><span class="sk">Flask</span><span class="sk">SocketIO</span><span
-                class="sk">SQLite</span><span class="sk">REST APIs</span></div>
+
+          <div class="cert-card" style="border:none;border-right:1px solid var(--border);">
+            <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--g);opacity:0.7;margin-bottom:8px;">Codec Technologies</div>
+            <div style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px;">AI Internship Certificate</div>
+            <div style="font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-bottom:14px;">Jun — Sep 2026 · Remote</div>
+            <div style="font-size:12px;color:var(--muted2);line-height:1.6;">2 projects: SentimentAI (5-method NLP ensemble) · DigitVerse (CNN ~99% accuracy)</div>
           </div>
-          <div class="skill-row">
-            <div class="skill-cat">Tools</div>
-            <div class="skill-items"><span class="sk">Git</span><span class="sk">GitHub</span><span class="sk">VS
-                Code</span><span class="sk">Antigravity</span></div>
+
+          <div class="cert-card" style="border:none;border-right:1px solid var(--border);">
+            <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--g);opacity:0.7;margin-bottom:8px;">Upgrad</div>
+            <div style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px;">Advanced Prompt Engineering with ChatGPT</div>
+            <div style="font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-bottom:14px;">2024 · Online</div>
+            <div style="font-size:12px;color:var(--muted2);line-height:1.6;margin-bottom:14px;">Advanced LLM prompting techniques, chain-of-thought, few-shot learning, and system design</div>
+            <a href="https://www.linkedin.com/posts/dharani-dharan-m-370083376_certification-ai-promptengineering-activity-7414498516485672960-OtlK?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFzqPkQB_XMNmk-7i8MKNsBF4pt1NnUHOmQ" target="_blank" style="font-family:var(--font-mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:6px 12px;border:1px solid #0077B5;color:#0077B5;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all 0.2s;" onmouseover="this.style.background='rgba(0,119,181,0.1)'" onmouseout="this.style.background='transparent'">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="11"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              View Certificate
+            </a>
           </div>
-          <div class="skill-row">
-            <div class="skill-cat">Speciality</div>
-            <div class="skill-items"><span class="sk">Tanglish AI</span><span class="sk">Indian Languages</span><span
-                class="sk">Full-Stack AI Apps</span></div>
+
+          <div class="cert-card" style="border:none;">
+            <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--g);opacity:0.7;margin-bottom:8px;">Infosys Springboard</div>
+            <div style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px;">Programming Fundamentals using Python Part 1</div>
+            <div style="font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-bottom:14px;">2024 · Online</div>
+            <div style="font-size:12px;color:var(--muted2);line-height:1.6;margin-bottom:14px;">Core Python: data types, control flow, functions, OOP basics, and file handling</div>
+            <a href="https://www.linkedin.com/posts/dharani-dharan-m-370083376_excited-to-share-that-ive-successfully-activity-7391691931258470400-lKh-?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFzqPkQB_XMNmk-7i8MKNsBF4pt1NnUHOmQ" target="_blank" style="font-family:var(--font-mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:6px 12px;border:1px solid #0077B5;color:#0077B5;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all 0.2s;" onmouseover="this.style.background='rgba(0,119,181,0.1)'" onmouseout="this.style.background='transparent'">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="11"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              View Certificate
+            </a>
           </div>
+
         </div>
       </div>
+
     </div>
   </section>
+
 
   <!-- ═══ AI CHAT ═════════════════════════════════════════════════════════════════ -->
   <section id="chat" style="min-height:auto;">
@@ -2333,17 +2942,6 @@
       });
     }, 100);
 
-    /* ─── COUNTERS ───────────────────────────────────────────────────────────── */
-    const cntObs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        const el = e.target, to = +el.dataset.to, suffix = to >= 50 ? '+' : '';
-        let v = 0; const step = to / 45;
-        const t = setInterval(() => { v = Math.min(v + step, to); el.textContent = Math.floor(v) + suffix; if (v >= to) clearInterval(t); }, 28);
-        cntObs.unobserve(el);
-      });
-    }, { threshold: .5 });
-    document.querySelectorAll('[data-to]').forEach(el => cntObs.observe(el));
 
     // Trigger reveals on page load for above-fold content
     window.addEventListener('load', () => {
@@ -2377,12 +2975,13 @@
 
 ## PERSONAL INFO
 - Full Name: Dharani Dharan M
-- Age: ~18 years old
+- Age: ~18 years old, he/him
 - Location: Karur, Tamil Nadu, India 🇮🇳
 - Email: dharani25007@gmail.com
 - Phone: +91 73737 11611
-- GitHub: https://github.com/dharani25007-code
+- GitHub: https://github.com/dharani25007-code (16 repos)
 - LinkedIn: https://linkedin.com/in/dharani-dharan-m-370083376
+- Portfolio: https://dharani25007-code.github.io/dharani-portfolio/
 
 ## EDUCATION
 - Degree: B.Tech in Artificial Intelligence & Data Science
@@ -2390,68 +2989,123 @@
 - Batch: 2025–2029 (currently 1st year)
 - Ships real, production-level AI projects while excelling academically
 
+## EXPERIENCE / INTERNSHIPS
+
+### 1. CodSoft — AI Developer Intern (May Batch C2, 2026 · Remote)
+Repo: https://github.com/dharani25007-code/CODSOFT
+Built 5 production-grade AI projects with patent-worthy innovations, far beyond basic requirements.
+
+TASK 1 — MoodBot (AI Chatbot):
+- Adaptive Emotional Resonance Engine — detects 6 mood states in real time
+- 4 AI Personalities: Therapist, Hype Friend, Zen Master, Tough Love — auto-switches based on mood
+- Auto language detection: English, Tamil, Hindi
+- Voice input + TTS output via Web Speech API
+- Full conversation memory + mood journey + summary dashboard
+- Tech: React + Node.js + Groq LLaMA3.3-70B
+
+TASK 2 — Tic-Tac-Toe AI:
+- Powered by Groq LLaMA3.3-70B as the AI brain — reasons and explains every move
+- 4 difficulty levels + 4 AI personalities (Strategic, Aggressive, Defensive, Chaotic)
+- 4 grid sizes (3×3 to 6×6), move timer pressure mode (5s/10s/15s/20s), match mode (first to 3/5/7 wins)
+- Sound effects via Web Audio API + full move history log
+- Fallback: Minimax + Alpha-Beta Pruning (unbeatable)
+- Tech: React + Node.js + Groq LLaMA3.3-70B
+
+TASK 3 — Image Captioning (CaptionVerse):
+- CNN + Transformer pipeline for generating natural language descriptions from uploaded images
+- Tech: Python + Flask
+
+TASK 4 — UniRec (Universal AI Recommendation Engine):
+- 8 categories: Movies, Music, Books, Games, Food, Fitness, Travel, Apps
+- Emotional DNA Fingerprint — unique preference profile per user
+- Cross-Category Resonance + Mood-to-Universe Mapping (8 moods × 8 categories)
+- Bcrypt login/register, 5-star ratings & favourites, real links (IMDb, Spotify, Goodreads, Steam)
+- Tech: React + Python + Flask + Groq LLaMA3.3-70B + SQLite
+
+TASK 5 — Face Detection & Recognition:
+- Real-time face detection & recognition using deep learning
+- Tech: Python + OpenCV + PyTorch
+
+### 2. Codec Technologies — AI/ML Intern (Jun – Sep 2026 · Remote)
+Repo: https://github.com/dharani25007-code/Codec-Technologies-AI-Internship
+Built 2 production-ready AI projects with modern full-stack architecture + LLM integration.
+
+TASK 2 — SentimentAI (5-Method NLP Sentiment Analysis Engine):
+- 5 NLP methods in consensus voting: VADER, TextBlob, Naive Bayes, SVM LinearSVC, Groq LLaMA3.3
+- Per-method confidence scores, word-level positive/negative highlighting
+- Emotion + sarcasm detection via Groq deep NLP
+- Batch analysis (up to 20 texts), prediction history, sample tweets for quick testing
+- Tech: Python + Flask + NLTK + scikit-learn + Groq LLaMA3.3-70B + React
+
+TASK 3 — DigitVerse (CNN Handwritten Digit Recognizer):
+- CNN trained on MNIST 60K images achieving ~99% accuracy
+- CNN Architecture: Conv2d(1→32)→Conv2d(32→32)→MaxPool→Conv2d(32→64)→Conv2d(64→64)→MaxPool→Linear(3136→512)→Linear(512→10)
+- Interactive canvas drawing (mouse/finger), top-3 predictions with confidence bars
+- Full layer-by-layer architecture breakdown, Groq AI explains each prediction
+- Training progress shown epoch-by-epoch, prediction history (last 10)
+- Tech: Python + Flask + PyTorch 2.3 + MNIST + React
+
 ## PERSONALITY & WORK STYLE
 - Ships every week — hardcore "build in public" mindset
 - Self-taught in most areas; goes WAY beyond coursework
 - Passionate about making AI accessible to Tamil speakers and Indian-language communities
 - Fast learner, obsessed with building things that actually work
-- Believes in open source — all his projects are public
+- Believes in open source — all his projects are public on GitHub
 
 ## TECHNICAL SKILLS
 Languages: Python (primary), JavaScript, TypeScript, HTML5, CSS3
-AI & ML: LLMs, Prompt Engineering, OpenRouter API (14-model routing), Groq API (ultra-fast inference), Claude API, Scikit-learn, NumPy, Pandas, Matplotlib
-Frontend: React, Vite, Tailwind CSS, Vanilla JS
-Backend: Flask, SocketIO (real-time), REST APIs, SQLite
+AI & ML: LLMs, RAG Systems, Prompt Engineering, OpenRouter API (14-model routing), Groq API, Claude API, Scikit-learn, NLTK, VADER, TextBlob, SVM, Naive Bayes, CNN, PyTorch, NumPy, Pandas, OpenCV, Minimax+Alpha-Beta
+Frontend: React 18, Vite 5, Tailwind CSS, Vanilla JS, Web Speech API, Web Audio API, HTML5 Canvas
+Backend: Flask, Node.js + Express, FastAPI, SocketIO, REST APIs, SQLite
+Auth: Flask-Bcrypt, JWT, Sessions
 Tools: Git, GitHub, VS Code
-Speciality: Tanglish AI, Indian Language NLP, Full-Stack AI Apps, Real-Time Systems
 
-## PROJECTS (5 TOTAL — ALL OPEN SOURCE)
+## PROJECTS (7 TOTAL — ALL OPEN SOURCE)
 
-### 1. CodeBuddy ⭐ FLAGSHIP — World's First Tanglish AI Coding Assistant
-- Built in his very FIRST semester — unprecedented for a freshman
-- Merges Tamil + English (Tanglish) so Indian developers can code in their native language
-- 28 features: AI code gen, debugging, interview simulation, code review, ML architecture, sandboxed code execution
-- 14-model AI fallback chain → 100% uptime guaranteed (auto-switches if any model fails)
-- Supports 9 Indian languages: Tamil, Telugu, Malayalam, Kannada, Hindi, Bengali, Marathi, Gujarati, Odia
-- Live SocketIO real-time pair programming — multiple users coding together
-- Gamified: karma points, daily streaks, achievements, leaderboard
+### 1. CodeBuddy ⭐ FLAGSHIP
+World's first Tanglish AI coding assistant — built in semester 1.
+- 28 features: AI code gen, debugging, interview sim, code review, ML architecture, sandboxed execution
+- 14-model AI fallback chain → 100% uptime guaranteed
+- 9 Indian languages: Tamil, Telugu, Malayalam, Kannada, Hindi, Bengali, Marathi, Gujarati, Odia
+- Live SocketIO real-time pair programming + gamification (karma, streaks, leaderboard)
 - Tech: Python, Flask, SocketIO, HTML/CSS/JS, OpenRouter API, SQLite
-- GitHub: https://github.com/dharani25007-code/CodeBuddy
+- GitHub: https://github.com/dharani25007-code/codebuddy
 
-### 2. DevMind — Unified AI Developer Learning Platform
-- 3 AI-powered tools in one platform:
-  → SQLens: Plain English → perfect SQL query instantly
-  → GitNarrate: GitHub repo URL → AI-generated podcast-style audio explanation
-  → DSAVisualizer: 60+ algorithms animated live in-browser step by step
+### 2. DevMind — AI Developer Learning Platform
+3 tools: SQLens (English→SQL), GitNarrate (repo→podcast audio), DSAVisualizer (60+ algorithms animated)
 - Tech: React, Vite, Flask, Groq API, SQLite
-- GitHub: https://github.com/dharani25007-code/DevMind
+- GitHub: https://github.com/dharani25007-code/DevMind-
 
 ### 3. TOOLZEN — 50+ Browser Utility Tools
-- Browser Swiss Army knife: QR designer, file converters, image tools, password generator, JSON formatter, 40+ more
-- Built-in Claude AI assistant
-- 100% client-side — zero backend, zero signup, zero install. Privacy-first.
-- Tech: HTML, CSS, Vanilla JS, Claude API
-- GitHub: https://github.com/dharani25007-code/toolzen
+QR designer, file converters, image tools, JSON formatter, password generator, Claude AI assistant.
+100% client-side — zero backend, zero signup. Installable PWA with offline mode.
+- GitHub: https://github.com/dharani25007-code/toolzen · Live: https://dharani25007-code.github.io/toolzen/
 
-### 4. StudentsDB — Python CLI Academic Record System
-- Terminal-based CLI with full CRUD on student records
-- Persistent Python file storage — data survives restarts
-- His FIRST project — the one that proved he could build from scratch
-- Tech: Pure Python, File I/O
+### 4. Student ERP — Desktop Academic Record System
+Full CRUD, dark-themed GUI, role-based login, CSV import/export, live audit log.
+- Tech: Python, tkinter, SQLite
 - GitHub: https://github.com/dharani25007-code/Student-Data-Management-System
 
-### 5. PrepSense AI 🆕 — Adaptive AI Interview Coach
-- Interview questions that dynamically scale to your score in real time — harder if you're doing well, easier if you struggle
-- Smart follow-up probes that dig deeper based on your answers
-- Confidence tracker + IRI (Interview Readiness Index) dashboard
-- Teacher-level explanations for every answer — you actually learn, not just practice
-- No two sessions are ever the same — fully adaptive
-- Tech: React, Flask, Groq API, JWT authentication
-- GitHub: https://github.com/dharani25007-code/PrepSenseAI
+### 5. PrepSense AI — Adaptive AI Interview Coach
+Real-time adaptive questions (scale to your score), smart follow-up probes, confidence tracker, IRI dashboard, teacher-level explanations.
+- Tech: React, Flask, Groq API, JWT
+- GitHub: https://github.com/dharani25007-code/prepsense-ai
+
+### 6. RAGMind — Self-Healing RAG Study Assistant
+Auto-corrects retrieval errors in real time. Answers questions from uploaded study files.
+- Tech: React, Node.js, FastAPI, Groq LLaMA
+- GitHub: https://github.com/dharani25007-code/RAGMind-Self-Healing-RAG-Platform-for-Education
+
+### 7. Echo Snake — Ghost-Trail Snake Game
+Classic Snake twist: your ghost follows your exact path with a 5-second delay. Don't collide with your own past!
+- Tech: Pure HTML5 Canvas + Vanilla JS
+- GitHub: https://github.com/dharani25007-code/echo-snake. · Live: https://dharani25007-code.github.io/echo-snake./
 
 ## CERTIFICATIONS
-1. Advanced Prompt Engineering with ChatGPT — Upgrad (2024)
-2. Programming Fundamentals using Python Part 1 — Infosys Springboard
+1. AI Internship Certificate — CodSoft (May Batch C2 2026) — 5 AI projects completed
+2. AI Internship Certificate — Codec Technologies (Jun–Sep 2026) — 2 AI projects completed
+3. Advanced Prompt Engineering with ChatGPT — Upgrad (2024)
+4. Programming Fundamentals using Python Part 1 — Infosys Springboard (2024)
 
 ## AVAILABILITY
 - ✅ ACTIVELY looking for internships RIGHT NOW
@@ -2459,11 +3113,11 @@ Speciality: Tanglish AI, Indian Language NLP, Full-Stack AI Apps, Real-Time Syst
 - Open to remote or on-site (anywhere in India)
 - Most interested in: AI/ML engineering, LLM applications, full-stack AI dev
 
-## WHY HIRE DHARANI? (use this for recruiter questions)
-- Built the world's first Tanglish AI in semester 1 — extreme initiative and execution speed
-- 5 live, open-source, real-world AI projects (not toy apps — real features, real users)
-- Full AI stack mastery: LLM APIs → deployment, frontend → backend
-- Unique edge: bridges Tamil/Indian language context with modern AI — rare skill set
+## WHY HIRE DHARANI?
+- 2 completed AI internships with 7 projects shipped — proven real-world execution
+- World's first Tanglish AI coding assistant built in semester 1 — unmatched initiative
+- Full AI stack: RAG, CNN, NLP (5-method ensemble!), LLM APIs, real-time SocketIO, frontend → backend
+- Unique edge: bridges Tamil/Indian language context with modern AI
 - Delivers immediately — available now, ships fast, learns even faster
 
 ## CONTACT
@@ -2472,14 +3126,13 @@ Speciality: Tanglish AI, Indian Language NLP, Full-Stack AI Apps, Real-Time Syst
 - LinkedIn: linkedin.com/in/dharani-dharan-m-370083376
 - GitHub: github.com/dharani25007-code
 
-## YOUR RULES
+## RULES
 1. Answer ALL questions about Dharani fully and confidently
-2. Hiring/internship questions → give email + strongly encourage them ("he's exceptional, reach out now!")
-3. Project questions → give rich details: features, tech, what makes it special
-4. PrepSense AI questions → describe as adaptive AI interview coach: real-time adaptive questions, smart follow-up probes, confidence tracker, IRI dashboard, teacher-level explanations
-5. Truly unsure → "I'm not 100% sure — reach Dharani at dharani25007@gmail.com"
-6. Never invent facts. Only use what's above.
-7. Recruiters: always add "Dharani is available now and would love to connect!"
+2. Hiring/internship questions → give email + strongly encourage them
+3. Project/internship questions → give rich accurate details from above
+4. Truly unsure → "I'm not 100% sure — reach Dharani at dharani25007@gmail.com"
+5. Never invent facts. Only use what's above.
+6. Recruiters: always add "Dharani is available now and would love to connect!"
 `;
     let hist = [], busy = false;
 
@@ -2489,11 +3142,9 @@ Speciality: Tanglish AI, Indian Language NLP, Full-Stack AI Apps, Real-Time Syst
       document.getElementById('csugs').style.display = 'none';
       const body = document.getElementById('cbody');
 
-      // Add user message
       const um = document.createElement('div');
       um.className = 'cm user'; um.textContent = text; body.appendChild(um);
 
-      // Add typing indicator
       const tp = document.createElement('div');
       tp.className = 'cm-typing';
       tp.innerHTML = '<span></span><span></span><span></span>';
@@ -2502,33 +3153,21 @@ Speciality: Tanglish AI, Indian Language NLP, Full-Stack AI Apps, Real-Time Syst
       busy = true;
       hist.push({ role: 'user', content: text });
 
-      // ── GROQ API (free, fast, no CORS issues) ──────────────────────────────
-      // Get your FREE key at: https://console.groq.com → API Keys → Create Key
-      const GROQ_API_KEY = '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'; // ← paste your free Groq key here
+      const GROQ_API_KEY = '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';
 
       try {
-        // key is configured
-
         const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + GROQ_API_KEY
-          },
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + GROQ_API_KEY },
           body: JSON.stringify({
             model: 'llama-3.3-70b-versatile',
-            max_tokens: 350,
-            messages: [
-              { role: 'system', content: CTX },
-              ...hist
-            ]
+            max_tokens: 400,
+            messages: [{ role: 'system', content: CTX }, ...hist]
           })
         });
-
         const d = await r.json();
         const reply = d.choices?.[0]?.message?.content || '';
         if (!reply) throw new Error('empty');
-
         hist.push({ role: 'assistant', content: reply });
         tp.remove();
         const bm = document.createElement('div');
@@ -2536,37 +3175,52 @@ Speciality: Tanglish AI, Indian Language NLP, Full-Stack AI Apps, Real-Time Syst
         body.appendChild(bm);
 
       } catch (err) {
-        // Smart local fallback — works even without API key
         tp.remove();
         const q = text.toLowerCase();
         let reply = '';
 
-        if (q.includes('prepsense') || q.includes('prep sense') || q.includes('interview coach') || q.includes('interview')) {
-          reply = "PrepSense AI is Dharani's newest project — an adaptive AI interview coach! 🆕 Questions scale to your score in real time, with smart follow-up probes, a confidence tracker, IRI dashboard, and teacher-level explanations. Built with React, Flask, Groq API, and JWT. Every session is unique! GitHub: github.com/dharani25007-code/PrepSenseAI";
+        if (q.includes('moodbot') || q.includes('mood bot')) {
+          reply = "MoodBot is Dharani's AI chatbot from the CodSoft internship! 🧠 It detects 6 mood states in real time and auto-switches between 4 AI personalities — Therapist, Hype Friend, Zen Master, and Tough Love. It also detects English/Tamil/Hindi automatically and has voice input + TTS output. Built with React + Node.js + Groq LLaMA3.3-70B.";
+        } else if (q.includes('unirec') || q.includes('recommendation')) {
+          reply = "UniRec is Dharani's Universal AI Recommendation Engine from CodSoft! 🌍 It covers 8 categories (Movies, Music, Books, Games, Food, Fitness, Travel, Apps), creates an Emotional DNA Fingerprint for each user, and maps moods to recommendations. Has bcrypt login, 5-star ratings, and real links to IMDb/Spotify/Goodreads. Built with React + Flask + Groq.";
+        } else if (q.includes('sentimentai') || q.includes('sentiment')) {
+          reply = "SentimentAI is Dharani's NLP powerhouse from Codec Technologies! 📊 It uses 5 methods in consensus: VADER, TextBlob, Naive Bayes, SVM LinearSVC, and Groq LLaMA3.3. You get per-method confidence scores, word-level highlighting, sarcasm detection, and batch analysis of up to 20 texts. Built with Python + Flask + scikit-learn + React.";
+        } else if (q.includes('digitverse') || q.includes('digit') || q.includes('mnist') || q.includes('cnn')) {
+          reply = "DigitVerse is Dharani's CNN digit recognizer from Codec Technologies! 🔢 A CNN trained on MNIST 60K images achieves ~99% accuracy. Draw a digit on the canvas (mouse or finger), get top-3 predictions with confidence bars, and Groq AI explains the prediction in plain English. Built with Python + Flask + PyTorch 2.3 + React.";
+        } else if (q.includes('ragmind') || q.includes('rag') || q.includes('study') || q.includes('self-heal')) {
+          reply = "RAGMind is Dharani's most technically advanced project — a self-healing RAG pipeline for education! 🧠 It auto-corrects retrieval errors and answers questions from uploaded study files. Built with React, Node.js, FastAPI, and Groq LLaMA. GitHub: github.com/dharani25007-code/RAGMind-Self-Healing-RAG-Platform-for-Education";
+        } else if (q.includes('echo') || q.includes('snake') || q.includes('game')) {
+          reply = "Echo Snake is Dharani's creative game — a twist on classic Snake where your ghost follows your exact path with a 5-second delay. Don't collide with your own past! 🐍 Pure HTML5 Canvas & vanilla JS. Play it live: dharani25007-code.github.io/echo-snake./";
+        } else if (q.includes('codsoft') || (q.includes('internship') && !q.includes('codec')) || q.includes('cодсофт')) {
+          reply = "Dharani completed the CodSoft AI Internship (May Batch C2 2026)! 🎯 He built 5 projects: MoodBot (emotional resonance chatbot), Tic-Tac-Toe AI (Groq LLaMA3 + Minimax), Image Captioning, UniRec (recommendation engine across 8 categories), and Face Detection. All go way beyond the basic requirements. Repo: github.com/dharani25007-code/CODSOFT";
+        } else if (q.includes('codec')) {
+          reply = "Dharani completed the Codec Technologies AI Internship (Jun–Sep 2026)! 🎯 He built SentimentAI (5-method NLP ensemble with VADER, TextBlob, Naive Bayes, SVM + Groq) and DigitVerse (CNN on MNIST ~99% accuracy with interactive canvas). Repo: github.com/dharani25007-code/Codec-Technologies-AI-Internship";
+        } else if (q.includes('experience') || (q.includes('intern') && q.includes('all'))) {
+          reply = "Dharani has completed 2 AI internships! (1) CodSoft (May 2026) — 5 projects: MoodBot, Tic-Tac-Toe AI, Image Captioning, UniRec, Face Detection. (2) Codec Technologies (Jun–Sep 2026) — SentimentAI (5-method NLP) + DigitVerse (CNN ~99% MNIST). Both repos are open-source on his GitHub!";
+        } else if (q.includes('prepsense') || q.includes('interview coach') || q.includes('interview')) {
+          reply = "PrepSense AI is Dharani's adaptive AI interview coach! 🎯 Questions scale to your score in real time — smart follow-up probes, confidence tracker, IRI dashboard, and teacher-level explanations. No two sessions are the same. Built with React, Flask, Groq API, and JWT. GitHub: github.com/dharani25007-code/prepsense-ai";
         } else if (q.includes('codebuddy')) {
-          reply = "CodeBuddy is Dharani's biggest project — the world's first Tanglish AI coding assistant! It has 28 features, a 14-model AI fallback chain for 100% uptime, supports 9 Indian languages, and has live SocketIO pair programming. Built in his very first semester! GitHub: github.com/dharani25007-code/CodeBuddy";
+          reply = "CodeBuddy is Dharani's FLAGSHIP — the world's first Tanglish AI coding assistant! 🌟 28 features, 14-model AI fallback chain (100% uptime), 9 Indian languages, live SocketIO pair programming, gamification. Built in his very first semester! GitHub: github.com/dharani25007-code/codebuddy";
         } else if (q.includes('devmind')) {
-          reply = "DevMind is an AI developer learning platform with 3 tools in one: SQLens (plain English → SQL query), GitNarrate (GitHub repo → podcast audio), and DSAVisualizer (60+ algorithms animated live). Built with React, Vite, Flask and Groq API. GitHub: github.com/dharani25007-code/DevMind";
+          reply = "DevMind is an AI developer learning platform with 3 tools: SQLens (English → SQL), GitNarrate (GitHub repo → podcast audio), and DSAVisualizer (60+ algorithms animated live). Built with React, Vite, Flask and Groq API. GitHub: github.com/dharani25007-code/DevMind-";
         } else if (q.includes('toolzen')) {
-          reply = "TOOLZEN is a browser Swiss Army knife with 50+ tools — QR code designer, file converters, image tools, password generator, JSON formatter and much more. Has a built-in Claude AI assistant. 100% client-side, no backend, no signup. GitHub: github.com/dharani25007-code/TOOLZEN";
-        } else if (q.includes('studentsdb') || q.includes('student')) {
-          reply = "StudentsDB is Dharani's first real project — a Python CLI app for managing student academic records with full CRUD operations. Clean menu-driven interface with persistent file storage. GitHub: github.com/dharani25007-code/StudentsDB";
-        } else if (q.includes('skill') || q.includes('know') || q.includes('tech') || q.includes('stack') || q.includes('language')) {
-          reply = "Dharani's skills: Python, JavaScript, TypeScript, HTML, CSS, React, Vite, Flask, SocketIO, SQLite, REST APIs. For AI/ML: LLMs, Prompt Engineering, OpenRouter API, Groq API, Scikit-learn, NumPy, Pandas. Specialises in full-stack AI apps and Indian language AI — especially Tamil/Tanglish.";
-        } else if (q.includes('avail') || q.includes('hire') || q.includes('intern') || q.includes('work') || q.includes('job') || q.includes('opportun')) {
-          reply = "Yes! Dharani is actively available for internship right now and can start immediately. He's open to remote or on-site roles anywhere in India. Best way to reach him: dharani25007@gmail.com or use the contact form below!";
-        } else if (q.includes('contact') || q.includes('reach') || q.includes('email') || q.includes('phone')) {
-          reply = "Reach Dharani at: Email → dharani25007@gmail.com | Phone → +91 7373711611 | GitHub → github.com/dharani25007-code | LinkedIn → linkedin.com/in/dharani-dharan-m-370083376. He replies fast!";
-        } else if (q.includes('project') || q.includes('built') || q.includes('made')) {
-          reply = "Dharani has built 5 projects: (1) CodeBuddy — world's first Tanglish AI coding assistant ⭐, (2) DevMind — AI learning platform, (3) TOOLZEN — 50+ browser tools, (4) StudentsDB — Python CLI, (5) PrepSense AI 🆕 — adaptive AI interview coach. All open source on github.com/dharani25007-code!";
-        } else if (q.includes('who') || q.includes('about') || q.includes('dharani') || q.includes('tell me')) {
-          reply = "Dharani Dharan M is a first-year B.Tech AI & Data Science student at Karunya Institute of Technology, from Karur, Tamil Nadu. He builds AI-powered projects that go way beyond coursework — shipping every week and learning in public!";
+          reply = "TOOLZEN is a browser Swiss Army knife — 50+ tools including QR code designer, file converters, image tools, password generator, JSON formatter, and a Claude AI assistant. 100% client-side, no backend, no signup. Live: dharani25007-code.github.io/toolzen/";
         } else if (q.includes('certif')) {
-          reply = "Dharani has two certifications: (1) Advanced Prompt Engineering with ChatGPT from Upgrad, (2) Programming Fundamentals using Python Part 1 from Infosys Springboard.";
+          reply = "Dharani has 4 certifications: (1) CodSoft AI Internship Certificate (May 2026), (2) Codec Technologies AI Internship Certificate (Jun–Sep 2026), (3) Advanced Prompt Engineering with ChatGPT — Upgrad (2024), (4) Programming Fundamentals using Python Part 1 — Infosys Springboard (2024).";
+        } else if (q.includes('skill') || q.includes('tech') || q.includes('stack')) {
+          reply = "Dharani's stack: Python, JavaScript, TypeScript, React, Node.js, Flask, FastAPI, SocketIO, SQLite. For AI/ML: LLMs, RAG, 5-method NLP (VADER+TextBlob+Naive Bayes+SVM+Groq), CNN/PyTorch, OpenCV, Minimax+Alpha-Beta, Prompt Engineering, OpenRouter, Groq API. Specialises in Tanglish AI, Indian-language NLP, and full-stack AI apps.";
+        } else if (q.includes('project') || q.includes('built') || q.includes('made')) {
+          reply = "Dharani has built 7 open-source projects: (1) CodeBuddy ⭐ — world's first Tanglish AI, (2) DevMind — AI dev learning platform, (3) TOOLZEN — 50+ browser tools, (4) Student ERP — desktop management, (5) PrepSense AI — adaptive interview coach, (6) RAGMind — self-healing RAG, (7) Echo Snake — ghost-trail game. All at github.com/dharani25007-code!";
+        } else if (q.includes('avail') || q.includes('hire') || q.includes('work') || q.includes('job') || q.includes('opportun')) {
+          reply = "Yes! Dharani is actively available for internship right now and can start immediately. 2 completed internships, 7 projects shipped, full AI stack — he's ready to contribute from day one. Reach him at dharani25007@gmail.com. He replies fast!";
+        } else if (q.includes('who') || q.includes('about') || q.includes('dharani') || q.includes('tell me')) {
+          reply = "Dharani Dharan M is a 1st-year B.Tech AI & DS student at Karunya Institute, from Karur, Tamil Nadu 🇮🇳. He's completed 2 AI internships, built 7 open-source AI projects (including the world's first Tanglish AI), and ships every week. A builder, not just a student.";
+        } else if (q.includes('contact') || q.includes('reach') || q.includes('email') || q.includes('phone')) {
+          reply = "Reach Dharani at: Email → dharani25007@gmail.com | Phone → +91 7373711611 | GitHub → github.com/dharani25007-code | LinkedIn → linkedin.com/in/dharani-dharan-m-370083376. He replies fast — usually within hours!";
         } else if (q.includes('why') && (q.includes('hire') || q.includes('choose'))) {
-          reply = "Dharani stands out because he ships real products, not just coursework. He built the world's first Tanglish AI assistant in his 1st semester. He has 5 live open-source projects, knows the full AI stack, and is available to start immediately. He's a builder, not just a student.";
+          reply = "Dharani stands out because: 2 real AI internships completed, world's first Tanglish AI in semester 1, 7 live open-source projects, full AI stack (RAG, CNN, 5-method NLP, LLMs), and he's available to start immediately. He's a builder, not just a student — every project goes way beyond requirements.";
         } else {
-          reply = "Great question! I'm Dharani's AI — I know everything about his projects (CodeBuddy, DevMind, TOOLZEN), skills, and background. For a direct answer, email him at dharani25007@gmail.com or ask me something more specific!";
+          reply = "Great question! I'm Dharani's AI — I know everything about his 7 projects, 2 internships (CodSoft + Codec Technologies), and full skill stack. Ask me about any specific project, or email him directly at dharani25007@gmail.com!";
         }
 
         const bm = document.createElement('div');
