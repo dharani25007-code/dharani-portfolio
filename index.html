@@ -2285,6 +2285,43 @@
       color: var(--g);
     }
 
+    /* ═══ SPOTLIGHT BORDERS ════════════════════════════════════════════════════ */
+    .proj, .exp-item, .cert-card, .focus-card {
+      position: relative;
+    }
+    
+    .proj::before, .exp-item::before, .cert-card::before, .focus-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: radial-gradient(
+        350px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+        rgba(99, 102, 241, 0.45),
+        transparent 60%
+      );
+      -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .proj:hover::before, .exp-item:hover::before, .cert-card:hover::before, .focus-card:hover::before {
+      opacity: 1;
+    }
+
+    /* Magnetic hover button transition */
+    .magnetic-btn {
+      display: inline-block;
+      transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
     /* END NEW CSS */
   </style>
   <!-- EmailJS SDK -->
@@ -2333,7 +2370,7 @@
       <a href="#contact"><span class="idx">06 /</span> contact</a>
     </div>
     <div style="display:flex;align-items:center;gap:12px;">
-      <a href="Dharani_Dharan_Resume.pdf" download="Dharani_Dharan_Resume.pdf" style="font-family:var(--font-mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+      <a href="Dharani_Dharan_Resume.pdf" download="Dharani_Dharan_Resume.pdf" class="magnetic-btn" style="font-family:var(--font-mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
              padding:9px 18px;background:var(--g);color:#020a06;border:none;font-weight:700;
              text-decoration:none;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:6px;">
         ↓ RESUME
@@ -2362,14 +2399,14 @@
         from simple applications like chatbot to full-stack AI platforms. I <strong>ship things that actually work.</strong>
       </p>
       <div class="h-btns">
-        <a href="#projects" class="btn-g">
+        <a href="#projects" class="btn-g magnetic-btn">
           View My Work
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="13">
             <path d="M5 12h14M12 5l7 7-7 7" />
           </svg>
         </a>
-        <a href="#contact" class="btn-outline">Get In Touch</a>
-        <a href="Dharani_Dharan_Resume.pdf" download="Dharani_Dharan_Resume.pdf" class="btn-outline"
+        <a href="#contact" class="btn-outline magnetic-btn">Get In Touch</a>
+        <a href="Dharani_Dharan_Resume.pdf" download="Dharani_Dharan_Resume.pdf" class="btn-outline magnetic-btn"
           style="border-color:var(--g);color:var(--g);">
           ↓ Resume
         </a>
@@ -3397,7 +3434,7 @@
       });
     });
 
-    /* ─── CUSTOM CURSOR TRACKING ─────────────────────────────────────────────── */
+    /* ─── CUSTOM CURSOR & INTERACTION PHYSICS ─────────────────────────────────── */
     const dot = document.getElementById('c-dot');
     const cross = document.getElementById('c-cross');
     
@@ -3409,6 +3446,33 @@
         my = e.clientY;
         dot.style.left = mx + 'px';
         dot.style.top = my + 'px';
+        
+        // Spotlight borders logic
+        const spotlightCards = document.querySelectorAll('.proj, .exp-item, .cert-card, .focus-card');
+        spotlightCards.forEach(card => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+        });
+        
+        // Magnetic buttons physics
+        const magneticBtns = document.querySelectorAll('.magnetic-btn');
+        magneticBtns.forEach(btn => {
+          const rect = btn.getBoundingClientRect();
+          const btnX = rect.left + rect.width / 2;
+          const btnY = rect.top + rect.height / 2;
+          const dist = Math.hypot(e.clientX - btnX, e.clientY - btnY);
+          
+          if (dist < 80) {
+            const pullX = (e.clientX - btnX) * 0.35;
+            const pullY = (e.clientY - btnY) * 0.35;
+            btn.style.transform = `translate(${pullX}px, ${pullY}px) scale(1.02)`;
+          } else {
+            btn.style.transform = '';
+          }
+        });
       });
       
       (function tick() {
