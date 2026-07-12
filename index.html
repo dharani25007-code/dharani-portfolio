@@ -1188,7 +1188,6 @@
     }
 
     /* About text */
-    .about-text {}
 
     .about-lead {
       font-size: 22px;
@@ -1929,11 +1928,6 @@
       transform: none;
     }
 
-    .rv-d1 {}
-
-    .rv-d2 {}
-
-    .rv-d3 {}
 
     /* ═══ MOBILE ═══════════════════════════════════════════════════════════════ */
     @media(max-width:900px) {
@@ -2302,6 +2296,9 @@
         transparent 60%
       );
       -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+      mask: 
         linear-gradient(#fff 0 0) content-box, 
         linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
