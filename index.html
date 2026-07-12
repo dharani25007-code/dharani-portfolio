@@ -35,24 +35,26 @@
     }
 
     :root {
-      --bg: #020a06;
-      --bg2: #030d08;
-      --surface: rgba(0, 255, 100, 0.03);
-      --g: #00ff64;
-      --g2: #00cc50;
-      --g-dim: rgba(0, 255, 100, 0.15);
-      --g-faint: rgba(0, 255, 100, 0.06);
-      --amber: #ffb800;
-      --text: #e8ffe8;
-      --muted: rgba(232, 255, 232, 0.45);
-      --muted2: rgba(232, 255, 232, 0.25);
-      --border: rgba(0, 255, 100, 0.1);
-      --border2: rgba(0, 255, 100, 0.2);
-      --font-head: 'Bebas Neue', sans-serif;
+      --bg: #070a13;         /* Midnight deep blue */
+      --bg2: #0d1222;        /* Dark slate card back */
+      --surface: rgba(255, 255, 255, 0.02);
+      --g: #10b981;          /* Emerald/Mint Primary Accent */
+      --g2: #059669;         /* Darker Emerald */
+      --accent-indigo: #6366f1; /* Premium Indigo */
+      --accent-violet: #8b5cf6; /* Premium Violet */
+      --g-dim: rgba(16, 185, 129, 0.15);
+      --g-faint: rgba(16, 185, 129, 0.04);
+      --amber: #f59e0b;
+      --text: #f3f4f6;       /* Clean Off-white */
+      --muted: rgba(243, 244, 246, 0.65);
+      --muted2: rgba(243, 244, 246, 0.3);
+      --border: rgba(255, 255, 255, 0.08);
+      --border2: rgba(255, 255, 255, 0.14);
+      --font-head: 'Space Grotesk', sans-serif;
       --font-body: 'Space Grotesk', sans-serif;
       --font-mono: 'Fira Code', monospace;
-      --glow: 0 0 20px rgba(0, 255, 100, 0.3);
-      --glow-lg: 0 0 60px rgba(0, 255, 100, 0.15);
+      --glow: 0 0 20px rgba(99, 102, 241, 0.2);
+      --glow-lg: 0 0 60px rgba(99, 102, 241, 0.1);
     }
 
     html {
@@ -64,16 +66,15 @@
       color: var(--text);
       font-family: var(--font-body);
       overflow-x: hidden;
-      cursor: none;
     }
 
     ::selection {
-      background: rgba(0, 255, 100, 0.2);
-      color: var(--g);
+      background: rgba(99, 102, 241, 0.2);
+      color: #ffffff;
     }
 
     ::-webkit-scrollbar {
-      width: 2px;
+      width: 4px;
     }
 
     ::-webkit-scrollbar-track {
@@ -81,67 +82,8 @@
     }
 
     ::-webkit-scrollbar-thumb {
-      background: var(--g2);
-      border-radius: 1px;
-    }
-
-    /* ═══ CURSOR ═══════════════════════════════════════════════════════════════ */
-    #c-dot {
-      position: fixed;
-      width: 6px;
-      height: 6px;
-      background: var(--g);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 99999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.08s;
-    }
-
-    #c-cross {
-      position: fixed;
-      pointer-events: none;
-      z-index: 99998;
-      transform: translate(-50%, -50%);
-    }
-
-    #c-cross::before,
-    #c-cross::after {
-      content: '';
-      position: absolute;
-      background: rgba(0, 255, 100, 0.4);
-    }
-
-    #c-cross::before {
-      width: 20px;
-      height: 1px;
-      top: -0.5px;
-      left: -10px;
-    }
-
-    #c-cross::after {
-      width: 1px;
-      height: 20px;
-      left: -0.5px;
-      top: -10px;
-    }
-
-    /* ═══ NOISE + SCANLINES ════════════════════════════════════════════════════ */
-    #noise {
-      position: fixed;
-      inset: 0;
-      z-index: 9990;
-      pointer-events: none;
-      opacity: 0.035;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
-
-    #scanlines {
-      position: fixed;
-      inset: 0;
-      z-index: 9989;
-      pointer-events: none;
-      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.03) 2px, rgba(0, 0, 0, 0.03) 4px);
+      background: var(--accent-indigo);
+      border-radius: 2px;
     }
 
     /* ═══ CIRCUIT CANVAS ═══════════════════════════════════════════════════════ */
@@ -157,8 +99,8 @@
       position: fixed;
       top: 0;
       left: 0;
-      height: 1px;
-      background: var(--g);
+      height: 2px;
+      background: linear-gradient(90deg, var(--g), var(--accent-indigo));
       z-index: 9999;
       width: 0;
       box-shadow: var(--glow);
@@ -182,8 +124,8 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(2, 10, 6, 0.85);
-      backdrop-filter: blur(24px);
+      background: rgba(7, 10, 19, 0.8);
+      backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
       z-index: -1;
     }
@@ -2271,13 +2213,7 @@
 
 <body>
 
-  <!-- CURSOR -->
-  <div id="c-dot"></div>
-  <div id="c-cross"></div>
-
   <!-- OVERLAYS -->
-  <div id="noise"></div>
-  <div id="scanlines"></div>
   <div id="prog"></div>
 
   <!-- CIRCUIT CANVAS -->
@@ -2399,7 +2335,7 @@
           <p class="about-body">My focus: LLMs, full-stack AI apps, and making AI accessible to Indian-language
             speakers. I built CodeBuddy — the world's first Tanglish AI coding assistant — in my very first semester.
             Not for a grade. Because it needed to exist.<br /><br />I ship every week, learn in public, and every single
-            project solves a real problem for real people in  somewhere.</p>
+            project solves a real problem for real people in their day-to-day lives.</p>
           <div class="about-meta">
             <div class="meta-cell">
               <div class="meta-key">University</div>
@@ -3207,20 +3143,7 @@
 
   <!-- ═══ SCRIPTS ════════════════════════════════════════════════════════════════ -->
   <script>
-    /* ─── CURSOR ─────────────────────────────────────────────────────────────── */
-    const dot = document.getElementById('c-dot'), cross = document.getElementById('c-cross');
-    let mx = 0, my = 0, rx = 0, ry = 0;
-    document.addEventListener('mousemove', e => {
-      mx = e.clientX; my = e.clientY;
-      dot.style.left = mx + 'px'; dot.style.top = my + 'px';
-    });
-    (function r() {
-      rx += (mx - rx) * .1; ry += (my - ry) * .1;
-      cross.style.left = rx + 'px'; cross.style.top = ry + 'px';
-      requestAnimationFrame(r);
-    })();
-
-    /* ─── CIRCUIT CANVAS ─────────────────────────────────────────────────────── */
+    /* ─── AMBIENT PARTICLES CANVAS ───────────────────────────────────────────── */
     (function () {
       const cv = document.getElementById('circuit');
       const ctx = cv.getContext('2d');
@@ -3229,11 +3152,11 @@
       resize(); addEventListener('resize', resize);
 
       const nodes = [];
-      for (let i = 0; i < 55; i++) {
+      for (let i = 0; i < 60; i++) {
         nodes.push({
           x: Math.random() * W, y: Math.random() * H,
-          vx: (Math.random() - .5) * .25, vy: (Math.random() - .5) * .25,
-          r: Math.random() * 1.5 + .5,
+          vx: (Math.random() - .5) * .2, vy: (Math.random() - .5) * .2,
+          r: Math.random() * 1.8 + .5,
           pulse: Math.random() * Math.PI * 2,
           pulseSpeed: Math.random() * .02 + .005
         });
@@ -3246,17 +3169,13 @@
           for (let j = i + 1; j < nodes.length; j++) {
             const dx = nodes[i].x - nodes[j].x, dy = nodes[i].y - nodes[j].y;
             const d = Math.sqrt(dx * dx + dy * dy);
-            if (d < 140) {
-              const a = (1 - d / 140) * .12;
+            if (d < 150) {
+              const a = (1 - d / 150) * .08;
               ctx.beginPath();
               ctx.moveTo(nodes[i].x, nodes[i].y);
-              // draw L-shaped circuit line instead of straight
-              const mx2 = (nodes[i].x + nodes[j].x) / 2;
-              ctx.lineTo(mx2, nodes[i].y);
-              ctx.lineTo(mx2, nodes[j].y);
               ctx.lineTo(nodes[j].x, nodes[j].y);
-              ctx.strokeStyle = `rgba(0,255,100,${a})`;
-              ctx.lineWidth = .5;
+              ctx.strokeStyle = `rgba(99, 102, 241, ${a})`;
+              ctx.lineWidth = .6;
               ctx.stroke();
             }
           }
@@ -3264,10 +3183,10 @@
         // nodes
         nodes.forEach(n => {
           n.pulse += n.pulseSpeed;
-          const glow = .3 + .2 * Math.sin(n.pulse);
+          const glow = .2 + .3 * Math.sin(n.pulse);
           ctx.beginPath();
           ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(0,255,100,${glow})`;
+          ctx.fillStyle = `rgba(16, 185, 129, ${glow})`;
           ctx.fill();
           n.x += n.vx; n.y += n.vy;
           if (n.x < 0 || n.x > W) n.vx *= -1;
